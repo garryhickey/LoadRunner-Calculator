@@ -1,0 +1,45 @@
+
+
+<form method="POST" action="/pacing/calculate" enctype="multipart/form-data">
+  
+        <div class="form-group">
+          <label for="numberOfUsers">Enter the Number of Users:</label>
+          <input type="number" class="form-control" id="numberOfUsers" aria-describedby="userInfo" placeholder="Enter Number of Users" name="numberOfUsers">
+          <small id="userInfo" class="form-text text-muted">This is the number of virtual users to be used in the scenario. </small>
+        </div>
+        <div class="form-group">
+          <label for="executionsPerHour">Enter the number of Executions per Hour:</label>
+          <input type="number" class="form-control" id="executionsPerHour" name="executionsPerHour" aria-describedby="execsPerHour" placeholder="Enter the Number of Executions per hour">
+          <small id="execsPerHour" class="form-text text-muted">This value can be gathered from using metrics </small>
+        </div>
+        <div class="form-group">
+            <label for="transactionsPerScenario">Enter the number of Transactions in the scenario:</label>
+            <input type="number" class="form-control" id="transactionsPerScenario" name="transactionsPerScenario" aria-describedby="transPerscen" placeholder="Enter the Number of Transactions in the scenario">
+            <small id="transPerscen" class="form-text text-muted">Each click or step is a transaction in the scenario. Be careful when deciding if Login / Logout will be included</small>
+        </div>
+        <div class="form-group">
+                <label for="E2EResponseTime">Enter the End to End Response Time without Think Time (in Seconds):</label>
+                <input type="number" class="form-control" id="E2EResponseTime" name="E2EResponseTime" aria-describedby="e2eresptime" placeholder="Enter the End to End Response Time (in Seconds)">
+                <small id="e2eresptime" class="form-text text-muted">This is the total time of the scenario without think time. In LoadRunner this is running the test while selecting ignore think time</small>
+            </div>
+            <div class="form-group">
+                    <label for="thinkTime">Enter the Think Time between transactions (in Seconds):</label>
+                    <input type="number" class="form-control" id="thinkTime" name="thinkTime" aria-describedby="thinkTime" placeholder="Enter the Think Time (in Seconds)">
+                    <small id="thinkTime" class="form-text text-muted">Enter the individual think time that occurs between transactions. If there is varainces, please enter the average think time</small>
+                </div>
+        
+
+        <button id = "calculate" type="submit" class="btn btn-success">Calculate</button>
+        
+      </form>
+      
+  
+      <div class="spacer" style="padding-top: 40px;">
+     
+      <div class="panel panel-primary"> <div class="panel-heading"> <h3 class="panel-title">At fixed intervals - (Option 3 in Run-time Settings)</h3> </div> <div class="panel-body"> <%= pacingResult %> Seconds</div> </div>
+      <div class="panel panel-primary"> <div class="panel-heading"> <h3 class="panel-title">After the previous iteration ends - (Option 2 in Run-time Settings)</h3> </div> <div class="panel-body"> <%= pacingResult2 %> Seconds</div> </div>
+     
+      <div class="alert alert-warning" role="alert"> <strong>Please Note</strong> If there are negative values e.g (- 145 seconds) then no pacing is required</div>
+
+      
+    

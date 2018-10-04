@@ -1,0 +1,86 @@
+<!-- Page Content -->
+<div class="container">
+
+        <div class="row">
+  
+          <!-- Post Content Column -->
+          <div class="col-lg-8">
+  
+            <!-- Title -->
+            <h1 class="mt-4">How it works - Little's Law</h1>
+  
+  
+  
+            <hr>
+  
+            <!-- Date/Time -->
+            <p>Posted on July 30, 2018 at 1:21 PM</p>
+  
+            <hr>
+  
+            <!-- Preview Image -->
+            <img class="img-fluid rounded" src="/images/cover2.jpeg" height="300" width="800" alt="">
+  
+            <hr>
+  
+            <!-- Post Content -->
+            <p class="lead">Transaction per second (TPS) is the number of transactions executed per second. In other words, it can be calculated based on how many transactions are executed over a certain duration of the test and then calculate it for a second.</p>
+  
+            <p>For example, if a vuser executes 6 transactions every minute, then the TPS would be 6 transactions/60 sec = 0.10 TPS</p>
+            <h2 class="mt-4">Little's Law</h2>
+  
+            <p>Before going into details of the formula derived by little’s law, it is important to understand how response time and pacing are related because these are the key factors that control your TPS if the number of vusers are kept constant.</p>
+
+           <p> As we know pacing is inter-iteration gap i.e. it is the pause a vuser takes before executing next iteration. And hence it also helps to control the rate of iterations i.e. rate of transactions i.e. TPS.</p>
+  
+            <blockquote class="blockquote">
+              <p class="mb-0">Remember, Pacing always overrides Response time when it comes to determining TPS if we select Option 3 in Run-Time settings with a Fixed variable</p>
+            </blockquote>
+  
+            <p>In the examples below, let’s assume that the vuser’s action() contains only one transaction. In following examples, you may find that the terms ‘transaction’ and ‘iteration’ are used interchangeably. That is just because the action contains only one transaction. Thus one transaction will be fired when one iteration of the action is completed.</p>
+
+            <h3 class="font-weight-bold">Example 1 - Let’s say that we have set Pacing to zero and Think Time to zero.</h3>
+
+            <p>A vuser performs 5 transactions and response time for each transaction is 10 seconds. Then it will take 5*10 = 50 seconds to complete 5 transactions. i.e. 5/50 = 0.1 TPS. Here, you can see that TPS is controlled by response time.</p>
+
+            <p><img src="/images/example1.png" class="rounded float-left" alt=""></p>
+
+            <h3 class="font-weight-bold">Example 2:  Let’s say that we have set pacing to 15 sec and Think Time to zero.</h3>
+  
+            <p>A vuser performs 5 transactions and response time for each transaction is 10 seconds. But the fact that now pacing is greater than response times, it will override the response times and it will control the transaction rate. Hence it will take 5*15 = 75 seconds to complete 5 iterations.  i.e. 5/75 = 0.06667 TPS [This is the most correct way of setting up your test scenario to simulate consistent TPS load on the system under test.]</p>
+
+            <p><img src="/images/example2.png" class="rounded float-left" alt=""></p>
+
+            <p>In the second example, as long as the average response times are less than 15 seconds, it will always take 75 seconds to complete 5 iterations i.e. generate 0.06667 TPS</p>
+
+           <p> In both the above examples, we also assumed that think time was set to Zero. If, say, it was 2 seconds, total time taken to complete 5 transactions would still be 5*15 = 75 seconds i.e. generate (5/75) = 0.06667 TPS</p>
+
+           <p><img src="/images/example3.png" class="rounded float-left" alt=""></p>
+
+           <p>So taking the above rules, we can say that think time will be used as concurrency and ensure that there is adequete spacing between transaction steps while pacing will ensure we have the correct throughput over a period of time. As long as the Response Time and Total think time is less than the pacing we set we can fully control the throughput.</p>
+
+           <p>The formula for Littles Law is as follows:</p>
+
+           <h4 class="font-weight-bold">Number of vusers = TPS * (Pacing)</h4>
+
+           <p>To fully control the pacing as described above, we select "At fixed intervals" (Option 3 in Run-time settings). If we want to only determine what the difference is between what the correct throughput is and the total response time (response time + total think time) then we can select "After the previous iteration ends" (Option 2 in Run-time settings) and make up the difference this way to achieve the correct time thresehold for throughput</p>
+
+          <P>I hope that makes things a little clearer in terms of pacing and how we can achieve the correct throughput over a period of time. The preferred choice to be in complete control of pacing would be Option 3. Rememeber if a negative value is returned from the calculator then your total response time ( response time + total think time ) is greater than the pacing set and no pacing is required. You would have to set pacing to zero and reduce the think time to get the correct throughput.</P>
+
+
+  
+            <hr>
+
+  
+          </div>
+  
+           
+  
+          </div>
+  
+        </div>
+        <!-- /.row -->
+  
+      </div>
+      <!-- /.container -->
+  
