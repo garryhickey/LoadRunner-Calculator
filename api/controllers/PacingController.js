@@ -13,18 +13,18 @@ module.exports = {
         var executions = parseInt(req.param('executionsPerHour'));
         var transactions = parseInt(req.param('transactionsPerScenario'));
         var response = parseInt(req.param('E2EResponseTime'));
-        var thinktime = parseInt(req.param('thinkTime'));
+        var thinkTime = parseInt(req.param('thinkTime'));
 
-        var totalthinktime = (((transactions - 1) * thinktime) + response);
+        var totalThinkTime = (((transactions - 1) * thinktime) + response);
         
         var tps = (executions / 3600);
 
        
        var pacing = (users / tps);
 
-       var pacingOption2 = (pacing - totalthinktime);
+       var pacingOption2 = (pacing - totalthinkTime);
 
-       if (totalthinktime > pacing)
+       if (totalThinktime > pacing)
        {
            console.log ("No Pacing is required")
        }
@@ -40,7 +40,7 @@ module.exports = {
 
     }
 
-       console.log("Total Think time is : " + totalthinktime);
+       console.log("Total Think time is : " + totalthinkTime);
        console.log ("The TPS is : " + tps);
        console.log("The pacing per iteration if option 3 is selected : " + pacing);
        console.log("The pacing per iteration if option 2 is selected : " + pacingOption2);
